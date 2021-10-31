@@ -9,6 +9,7 @@ import {
 import CheckoutItem from "../../components/checkout-item/checkoutItem.component";
 import CustomButton from "../../components/custom-button/customButton.component";
 import { withRouter } from "react-router";
+import StripeCheckoutButton from "../../components/stripe-button/stripeButton.component";
 
 const CheckoutPage = ({ cartIems, total, history }) => {
   return (
@@ -38,13 +39,18 @@ const CheckoutPage = ({ cartIems, total, history }) => {
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       {cartIems.length ? (
-        <div className="total">Total: ${total}</div>
+        <div className="total">
+          <div className="total-amout">Total: ${total}</div>
+          <StripeCheckoutButton price={total} />
+        </div>
+
       ) : (
         <CustomButton
           label="Go to Shop"
           onClick={() => history.push("/shop")}
         />
       )}
+
     </div>
   );
 };
